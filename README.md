@@ -10,8 +10,6 @@ For more information about using the Expo SDK, see the [Expo and Expo Go documen
 
 If you find an issue with this package and have a fix, first consult the [Contributing Guidelines][3].
 
-This package has a different versioning system from the other React Native packages, therefore it is out of the workspaces. Run `yarn install` from this directory to install dependencies.
-
 To try a development build plugin on an app, run this commands from this directory:
 
 ```sh
@@ -30,5 +28,5 @@ To avoid issues with the `npm` cache, change the name of the archive every time 
 
 [1]: https://docs.datadoghq.com/real_user_monitoring/error_tracking/expo/
 [2]: https://docs.datadoghq.com/real_user_monitoring/reactnative/expo/
-[3]: https://github.com/DataDog/dd-sdk-reactnative/blob/develop/CONTRIBUTING.md
+[3]: https://github.com/DataDog/expo-datadog/blob/main/CONTRIBUTING.md
 [4]: https://docs.expo.dev/build/setup/
