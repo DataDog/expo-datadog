@@ -1,0 +1,12 @@
+Component,Origin,License,Copyright
+dev,@babel/plugin-transform-runtime,MIT,"Copyright (c) 2014-present Sebastian McKenzie and other contributors"
+dev,@datadog/mobile-react-native,Apache-2.0,"Copyright 2017 Datadog, Inc."
+dev,@types/jest,MIT,"Copyrights are respective of each contributor listed at the beginning of each definition file."
+dev,@typescript-eslint/eslint-plugin,bsd-2-clause,"Copyright JS Foundation and other contributors, https://js.foundation"
+dev,@typescript-eslint/parser,bsd-2-clause,"Copyright JS Foundation and other contributors, https://js.foundation"
+dev,@typescript-eslint/typescript-estree,bsd-2-clause,"Copyright JS Foundation and other contributors, https://js.foundation"
+dev,eslint,MIT,"Copyright OpenJS Foundation and other contributors, <www.openjsf.org>"
+dev,eslint-config-prettier,MIT,"Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022 Simon Lydell and contributors"
+dev,expo-module-scripts,MIT,"Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)"
+dev,jest,MIT,"Copyright (c) Facebook, Inc. and its affiliates."
+dev,prettier,MIT,"Copyright © James Long and contributors"
