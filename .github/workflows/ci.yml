@@ -1,0 +1,32 @@
+# This workflow will do a clean install of node dependencies and run tests
+
+name: Continuous Integration
+
+on: push
+
+jobs:
+  build-and-test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "18.0.0"
+      - run: yarn install --immutable
+      - run: yarn build
+      - run: yarn test
+      - run: yarn lint
+
+  check-licenses:
+    name: Check licenses
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "18.0.0"
+      - run: yarn check-licenses
