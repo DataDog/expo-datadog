@@ -4,4 +4,4 @@
  * Copyright 2016-Present Datadog, Inc.
  */
 
-export * from '@datadog/mobile-react-native';
+export * from "@datadog/mobile-react-native";

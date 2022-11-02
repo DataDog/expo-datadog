@@ -4,4 +4,4 @@
  * Copyright 2016-Present Datadog, Inc.
  */
 
-module.exports = require('./build/plugin');
+module.exports = require("./build/plugin");

@@ -4,25 +4,25 @@
  * Copyright 2016-Present Datadog, Inc.
  */
 
-import type { ConfigPlugin } from '@expo/config-plugins';
-import { withPlugins } from '@expo/config-plugins';
+import type { ConfigPlugin } from "@expo/config-plugins";
+import { withPlugins } from "@expo/config-plugins";
 
 import {
-    ErrorTrackingOptions,
-    getErrorTrackingPluginsFromOptions
-} from './getErrorTrackingPluginsFromOptions';
+  ErrorTrackingOptions,
+  getErrorTrackingPluginsFromOptions,
+} from "./getErrorTrackingPluginsFromOptions";
 
 type PluginConfiguration =
-    | {
-          errorTracking?: ErrorTrackingOptions;
-      }
-    | undefined;
+  | {
+      errorTracking?: ErrorTrackingOptions;
+    }
+  | undefined;
 
 const withDatadog: ConfigPlugin<PluginConfiguration> = (config, options) => {
-    return withPlugins(
-        config,
-        getErrorTrackingPluginsFromOptions(options && options.errorTracking)
-    );
+  return withPlugins(
+    config,
+    getErrorTrackingPluginsFromOptions(options && options.errorTracking)
+  );
 };
 
 export default withDatadog;

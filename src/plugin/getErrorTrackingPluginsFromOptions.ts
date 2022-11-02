@@ -4,18 +4,18 @@
  * Copyright 2016-Present Datadog, Inc.
  */
 
-import type { ConfigPlugin, StaticPlugin } from '@expo/config-plugins';
+import type { ConfigPlugin, StaticPlugin } from "@expo/config-plugins";
 
-import withAndroidProguardMappingFiles from './withAndroidProguardMappingFiles/withAndroidProguardMappingFiles';
-import withAndroidSourcemaps from './withAndroidSourcemaps/withAndroidSourcemaps';
-import withIosDsyms from './withIosDsyms/withIosDsyms';
-import withIosSourcemaps from './withIosSourcemaps/withIosSourcemaps';
+import withAndroidProguardMappingFiles from "./withAndroidProguardMappingFiles/withAndroidProguardMappingFiles";
+import withAndroidSourcemaps from "./withAndroidSourcemaps/withAndroidSourcemaps";
+import withIosDsyms from "./withIosDsyms/withIosDsyms";
+import withIosSourcemaps from "./withIosSourcemaps/withIosSourcemaps";
 
 export type ErrorTrackingOptions = {
-    iosDsyms?: boolean;
-    iosSourcemaps?: boolean;
-    androidProguardMappingFiles?: boolean;
-    androidSourcemaps?: boolean;
+  iosDsyms?: boolean;
+  iosSourcemaps?: boolean;
+  androidProguardMappingFiles?: boolean;
+  androidSourcemaps?: boolean;
 };
 
 /**
@@ -23,23 +23,23 @@ export type ErrorTrackingOptions = {
  * to `false`.
  */
 export const getErrorTrackingPluginsFromOptions = (
-    options?: ErrorTrackingOptions
+  options?: ErrorTrackingOptions
 ): (ConfigPlugin<any> | StaticPlugin<any>)[] => {
-    const ERROR_TRACKING_CONFIG_PLUGINS_MAP: Record<
-        keyof ErrorTrackingOptions,
-        ConfigPlugin<any> | StaticPlugin<any>
-    > = {
-        iosDsyms: withIosDsyms,
-        iosSourcemaps: withIosSourcemaps,
-        androidProguardMappingFiles: withAndroidProguardMappingFiles,
-        androidSourcemaps: withAndroidSourcemaps
-    };
+  const ERROR_TRACKING_CONFIG_PLUGINS_MAP: Record<
+    keyof ErrorTrackingOptions,
+    ConfigPlugin<any> | StaticPlugin<any>
+  > = {
+    iosDsyms: withIosDsyms,
+    iosSourcemaps: withIosSourcemaps,
+    androidProguardMappingFiles: withAndroidProguardMappingFiles,
+    androidSourcemaps: withAndroidSourcemaps,
+  };
 
-    const configPluginsKeys = (Object.keys(
-        ERROR_TRACKING_CONFIG_PLUGINS_MAP
-    ) as (keyof ErrorTrackingOptions)[]).filter(
-        option => !options || options[option] !== false
-    );
+  const configPluginsKeys = (
+    Object.keys(
+      ERROR_TRACKING_CONFIG_PLUGINS_MAP
+    ) as (keyof ErrorTrackingOptions)[]
+  ).filter((option) => !options || options[option] !== false);
 
-    return configPluginsKeys.map(key => ERROR_TRACKING_CONFIG_PLUGINS_MAP[key]);
+  return configPluginsKeys.map((key) => ERROR_TRACKING_CONFIG_PLUGINS_MAP[key]);
 };
