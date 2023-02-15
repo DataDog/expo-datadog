@@ -15,8 +15,8 @@ const withAndroidSourcemaps: ConfigPlugin<void> = (config) => {
     }
 
     appBuildGradle.contents = appBuildGradle.contents.replace(
-      /react\.gradle\"\)/,
-      `react.gradle")\napply from: "${require("path").dirname(
+      /apply plugin\: \"com\.facebook\.react\"/,
+      `apply plugin: "com.facebook.react"\napply from: "${require("path").dirname(
         require.resolve("@datadog/mobile-react-native/package.json")
       )}/datadog-sourcemaps.gradle"`
     );
