@@ -41,5 +41,6 @@
   "peerDependencies": {
     "@datadog/mobile-react-native": ">=1.0.0",
     "expo": "49.x"
-  }
+  },
+  "packageManager": "yarn@3.6.1"
 }
