@@ -16,10 +16,10 @@ To try a development build plugin on an app, run this commands from this directo
 yarn clean && yarn build && yarn pack
 ```
 
-Copy the generated archive to the root of your app and change your `package.json` to install the package from the archive (change the version number accordingly):
+Copy the generated archive to the root of your app and change your `package.json` to install the package from the archive:
 
 ```json
-"expo-datadog": "./expo-datadog-v45.0.0.tgz",
+"expo-datadog": "./package.tgz",
 ```
 
 Run `yarn install` from your app and run `expo prebuild` to see changes appear in the native files. If this looks good to you, [start an EAS build][4] to test your changes.

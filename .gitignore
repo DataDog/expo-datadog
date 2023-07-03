@@ -73,3 +73,12 @@ package-lock.json
 
 # Release artifacts
 **/*.tgz
+
+# Yarn ignored files
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
