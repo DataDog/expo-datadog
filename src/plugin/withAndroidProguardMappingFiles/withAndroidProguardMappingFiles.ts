@@ -29,20 +29,20 @@ const withAndroidProguardMappingFiles: ConfigPlugin<void> = (config) => {
       `}`,
       ``,
     ].join("\n");
-    appBuildGradle.contents = `${installationBlock}${appBuildGradle.contents}`;
 
     // Automate the plugin to run after each build
     const automationBlock = [
-      `applicationVariants.all { variant ->`,
+      ``,
+      `android {`,
+      `    applicationVariants.all { variant ->`,
       `        if (project.tasks.findByName("minify\${variant.name.capitalize()}WithR8")) {`,
       `            tasks["minify\${variant.name.capitalize()}WithR8"].finalizedBy { tasks["uploadMapping\${variant.name.capitalize()}"] }`,
       `        }`,
+      `    }`,
+      `}`,
       ``,
     ].join("\n");
-    appBuildGradle.contents = appBuildGradle.contents.replace(
-      "applicationVariants.all { variant ->",
-      automationBlock
-    );
+    appBuildGradle.contents = `${installationBlock}${appBuildGradle.contents}${automationBlock}`;
 
     return config;
   });
