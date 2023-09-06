@@ -7,7 +7,8 @@
 import type { ConfigPlugin } from "@expo/config-plugins";
 import { withXcodeProject } from "@expo/config-plugins";
 
-const SOURCEMAP_FILE_COMMAND = "export SOURCEMAP_FILE=./main.jsbundle.map";
+const SOURCEMAP_FILE_COMMAND =
+  "export SOURCEMAP_FILE=$DERIVED_FILE_DIR/main.jsbundle.map";
 const DATADOG_XCODE_COMMAND = `../node_modules/.bin/datadog-ci react-native xcode \`\\\"$NODE_BINARY\\\" --print \\\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\\"\``;
 
 const withIosSourcemaps: ConfigPlugin<void> = (config) => {
