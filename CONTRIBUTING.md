@@ -30,7 +30,7 @@ yarn lint
 - Update the package version in the `package.json` file
 - Run `yarn clean && yarn build` to generate a new build
 - Check manually the content of the `build` directory
-- Run `yarn publish` to publish the package
+- Run `yarn npm publish` to publish the package
 
 ## Submitting Issues
 
