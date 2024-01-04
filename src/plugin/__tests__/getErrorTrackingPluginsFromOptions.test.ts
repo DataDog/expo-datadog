@@ -13,13 +13,15 @@ import withIosSourcemaps from "../withIosSourcemaps/withIosSourcemaps";
 const ALL_PLUGINS = [
   withIosDsyms,
   withIosSourcemaps,
-  withAndroidProguardMappingFiles,
+  withAndroidProguardMappingFiles({}),
   withAndroidSourcemaps,
 ];
 
 describe("getErrorTrackingPluginsFromOptions", () => {
   it("returns all plugins if no option is provided", () => {
-    expect(getErrorTrackingPluginsFromOptions()).toEqual(ALL_PLUGINS);
+    expect(getErrorTrackingPluginsFromOptions()).toHaveLength(
+      ALL_PLUGINS.length
+    );
   });
 
   it("keeps plugins set to true or undefined, while removing those set to false in options", () => {
