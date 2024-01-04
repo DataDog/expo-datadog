@@ -49,7 +49,7 @@ describe("withAndroidProguardMappingFiles", () => {
         createFakeConfig()
       )) as any;
       expect(result.modResults.contents).toMatch(
-        'id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.5.+"'
+        'id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.+"'
       );
     });
   });

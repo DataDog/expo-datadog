@@ -15,7 +15,7 @@ export type AndroidProguardMappingFilesOptions = {
   datadogGradlePluginVersion?: string;
 };
 
-const DEFAULT_DATADOG_GRADLE_PLUGIN_VERSION = "1.5.+";
+const DEFAULT_DATADOG_GRADLE_PLUGIN_VERSION = "1.+";
 
 const withAndroidProguardMappingFiles =
   (options: AndroidProguardMappingFilesOptions): ConfigPlugin<void> =>
