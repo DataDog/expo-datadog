@@ -6,17 +6,36 @@
 
 import type { ConfigPlugin, StaticPlugin } from "@expo/config-plugins";
 
-import withAndroidProguardMappingFiles from "./withAndroidProguardMappingFiles/withAndroidProguardMappingFiles";
+import withAndroidProguardMappingFiles, {
+  AndroidProguardMappingFilesOptions,
+} from "./withAndroidProguardMappingFiles/withAndroidProguardMappingFiles";
 import withAndroidSourcemaps from "./withAndroidSourcemaps/withAndroidSourcemaps";
 import withIosDsyms from "./withIosDsyms/withIosDsyms";
 import withIosSourcemaps from "./withIosSourcemaps/withIosSourcemaps";
 
-export type ErrorTrackingOptions = {
+type FileUploadOptions = {
+  /**
+   * Whether iOS dSYMs upload is enabled (default: true).
+   */
   iosDsyms?: boolean;
+
+  /**
+   * Whether iOS sourcemaps upload is enabled (default: true).
+   */
   iosSourcemaps?: boolean;
+
+  /**
+   * Whether Android Proguard mapping files upload is enabled (default: true).
+   */
   androidProguardMappingFiles?: boolean;
+  /**
+   * Whether Android sourcemaps upload is enabled (default: true).
+   */
   androidSourcemaps?: boolean;
 };
+
+export type ErrorTrackingOptions = FileUploadOptions &
+  AndroidProguardMappingFilesOptions;
 
 /**
  * By default, all plugins are enabled. To disable a plugin, you have to set it
@@ -26,19 +45,21 @@ export const getErrorTrackingPluginsFromOptions = (
   options?: ErrorTrackingOptions
 ): (ConfigPlugin<any> | StaticPlugin<any>)[] => {
   const ERROR_TRACKING_CONFIG_PLUGINS_MAP: Record<
-    keyof ErrorTrackingOptions,
+    keyof FileUploadOptions,
     ConfigPlugin<any> | StaticPlugin<any>
   > = {
     iosDsyms: withIosDsyms,
     iosSourcemaps: withIosSourcemaps,
-    androidProguardMappingFiles: withAndroidProguardMappingFiles,
+    androidProguardMappingFiles: withAndroidProguardMappingFiles({
+      datadogGradlePluginVersion: options?.datadogGradlePluginVersion,
+    }),
     androidSourcemaps: withAndroidSourcemaps,
   };
 
   const configPluginsKeys = (
     Object.keys(
       ERROR_TRACKING_CONFIG_PLUGINS_MAP
-    ) as (keyof ErrorTrackingOptions)[]
+    ) as (keyof FileUploadOptions)[]
   ).filter((option) => !options || options[option] !== false);
 
   return configPluginsKeys.map((key) => ERROR_TRACKING_CONFIG_PLUGINS_MAP[key]);
