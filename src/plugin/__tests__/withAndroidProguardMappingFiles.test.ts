@@ -51,6 +51,9 @@ describe("withAndroidProguardMappingFiles", () => {
       expect(result.modResults.contents).toMatch(
         'id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.+"'
       );
+      expect(result.modResults.contents).toMatch(
+        'checkProjectDependencies = "none"'
+      );
     });
   });
   describe("with datadog gradle plugin version option", () => {
@@ -61,6 +64,9 @@ describe("withAndroidProguardMappingFiles", () => {
       })(createFakeConfig())) as any;
       expect(result.modResults.contents).toMatch(
         'id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.9.0"'
+      );
+      expect(result.modResults.contents).toMatch(
+        'checkProjectDependencies = "none"'
       );
     });
   });
