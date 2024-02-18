@@ -34,7 +34,15 @@ type FileUploadOptions = {
   androidSourcemaps?: boolean;
 };
 
+export type SourceMapUploadOptions = {
+  /**
+   * Service name to use when uploading sourcemaps (default: application's bundle identifier).
+   */
+  serviceName?: string;
+};
+
 export type ErrorTrackingOptions = FileUploadOptions &
+  SourceMapUploadOptions &
   AndroidProguardMappingFilesOptions;
 
 /**
@@ -49,11 +57,15 @@ export const getErrorTrackingPluginsFromOptions = (
     ConfigPlugin<any> | StaticPlugin<any>
   > = {
     iosDsyms: withIosDsyms,
-    iosSourcemaps: withIosSourcemaps,
+    iosSourcemaps: withIosSourcemaps({
+      serviceName: options?.serviceName,
+    }),
     androidProguardMappingFiles: withAndroidProguardMappingFiles({
       datadogGradlePluginVersion: options?.datadogGradlePluginVersion,
     }),
-    androidSourcemaps: withAndroidSourcemaps,
+    androidSourcemaps: withAndroidSourcemaps({
+      serviceName: options?.serviceName,
+    }),
   };
 
   const configPluginsKeys = (
