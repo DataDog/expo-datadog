@@ -48,18 +48,36 @@ describe("withIosSourcemaps", () => {
   describe("on pristine project", () => {
     it("adds script to upload sourcemaps to Datadog", async () => {
       mockXcodeProject(pristineProject);
-      const result = (await withIosSourcemaps(createFakeConfig())) as any;
+      const result = (await withIosSourcemaps({})(createFakeConfig())) as any;
       expect(result.xcodeProject.shellScript).toMatchInlineSnapshot(
         `"\\"if [[ -f \\\\\\"$PODS_ROOT/../.xcode.env\\\\\\" ]]; then\\\\n  source \\\\\\"$PODS_ROOT/../.xcode.env\\\\\\"\\\\nfi\\\\nif [[ -f \\\\\\"$PODS_ROOT/../.xcode.env.local\\\\\\" ]]; then\\\\n  source \\\\\\"$PODS_ROOT/../.xcode.env.local\\\\\\"\\\\nfi\\\\n\\\\n# The project root by default is one level up from the ios directory\\\\nexport PROJECT_ROOT=\\\\\\"$PROJECT_DIR\\\\\\"/..\\\\n\\\\nif [[ \\\\\\"$CONFIGURATION\\\\\\" = *Debug* ]]; then\\\\n  export SKIP_BUNDLING=1\\\\nfi\\\\nexport SOURCEMAP_FILE=$DERIVED_FILE_DIR/main.jsbundle.map\\\\n ../node_modules/.bin/datadog-ci react-native xcode \`\\\\\\"$NODE_BINARY\\\\\\" --print \\\\\\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\\\\\"\`\\\\n\\\\n\\""`
+      );
+    });
+    it("adds script to upload sourcemaps to Datadog with custom service name", async () => {
+      mockXcodeProject(pristineProject);
+      const result = (await withIosSourcemaps({
+        serviceName: "com.company.app",
+      })(createFakeConfig())) as any;
+      expect(result.xcodeProject.shellScript).toMatchInlineSnapshot(
+        `"\\"if [[ -f \\\\\\"$PODS_ROOT/../.xcode.env\\\\\\" ]]; then\\\\n  source \\\\\\"$PODS_ROOT/../.xcode.env\\\\\\"\\\\nfi\\\\nif [[ -f \\\\\\"$PODS_ROOT/../.xcode.env.local\\\\\\" ]]; then\\\\n  source \\\\\\"$PODS_ROOT/../.xcode.env.local\\\\\\"\\\\nfi\\\\n\\\\n# The project root by default is one level up from the ios directory\\\\nexport PROJECT_ROOT=\\\\\\"$PROJECT_DIR\\\\\\"/..\\\\n\\\\nif [[ \\\\\\"$CONFIGURATION\\\\\\" = *Debug* ]]; then\\\\n  export SKIP_BUNDLING=1\\\\nfi\\\\nexport SOURCEMAP_FILE=$DERIVED_FILE_DIR/main.jsbundle.map\\\\n ../node_modules/.bin/datadog-ci react-native xcode \`\\\\\\"$NODE_BINARY\\\\\\" --service com.company.app --print \\\\\\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\\\\\"\`\\\\n\\\\n\\""`
       );
     });
   });
   describe("on projects implementing Sentry", () => {
     it("adds script to upload sourcemaps to Datadog", async () => {
       mockXcodeProject(sentryProject);
-      const result = (await withIosSourcemaps(createFakeConfig())) as any;
+      const result = (await withIosSourcemaps({})(createFakeConfig())) as any;
       expect(result.xcodeProject.shellScript).toMatchInlineSnapshot(
         `"\\"export SENTRY_PROPERTIES=sentry.properties\\\\nexport EXTRA_PACKAGER_ARGS=\\\\\\"--sourcemap-output $DERIVED_FILE_DIR/main.jsbundle.map\\\\\\"\\\\nif [[ -f \\\\\\"$PODS_ROOT/../.xcode.env\\\\\\" ]]; then\\\\n  source \\\\\\"$PODS_ROOT/../.xcode.env\\\\\\"\\\\nfi\\\\nif [[ -f \\\\\\"$PODS_ROOT/../.xcode.env.local\\\\\\" ]]; then\\\\n  source \\\\\\"$PODS_ROOT/../.xcode.env.local\\\\\\"\\\\nfi\\\\n\\\\n# The project root by default is one level up from the ios directory\\\\nexport PROJECT_ROOT=\\\\\\"$PROJECT_DIR\\\\\\"/..\\\\n\\\\nif [[ \\\\\\"$CONFIGURATION\\\\\\" = *Debug* ]]; then\\\\n  export SKIP_BUNDLING=1\\\\nfi\\\\n\`node --print \\\\\\"require.resolve('@sentry/cli/package.json').slice(0, -13) + '/bin/sentry-cli'\\\\\\"\` react-native xcode --force-foreground \`\\\\\\"$NODE_BINARY\\\\\\" --print \\\\\\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\\\\\"\`\\\\n\\\\n\\\\n ../node_modules/.bin/datadog-ci react-native xcode \`\\\\\\"$NODE_BINARY\\\\\\" --print \\\\\\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\\\\\"\`\\""`
+      );
+    });
+    it("adds script to upload sourcemaps to Datadog with custom service name", async () => {
+      mockXcodeProject(sentryProject);
+      const result = (await withIosSourcemaps({
+        serviceName: "com.company.app",
+      })(createFakeConfig())) as any;
+      expect(result.xcodeProject.shellScript).toMatchInlineSnapshot(
+        `"\\"export SENTRY_PROPERTIES=sentry.properties\\\\nexport EXTRA_PACKAGER_ARGS=\\\\\\"--sourcemap-output $DERIVED_FILE_DIR/main.jsbundle.map\\\\\\"\\\\nif [[ -f \\\\\\"$PODS_ROOT/../.xcode.env\\\\\\" ]]; then\\\\n  source \\\\\\"$PODS_ROOT/../.xcode.env\\\\\\"\\\\nfi\\\\nif [[ -f \\\\\\"$PODS_ROOT/../.xcode.env.local\\\\\\" ]]; then\\\\n  source \\\\\\"$PODS_ROOT/../.xcode.env.local\\\\\\"\\\\nfi\\\\n\\\\n# The project root by default is one level up from the ios directory\\\\nexport PROJECT_ROOT=\\\\\\"$PROJECT_DIR\\\\\\"/..\\\\n\\\\nif [[ \\\\\\"$CONFIGURATION\\\\\\" = *Debug* ]]; then\\\\n  export SKIP_BUNDLING=1\\\\nfi\\\\n\`node --print \\\\\\"require.resolve('@sentry/cli/package.json').slice(0, -13) + '/bin/sentry-cli'\\\\\\"\` react-native xcode --force-foreground \`\\\\\\"$NODE_BINARY\\\\\\" --print \\\\\\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\\\\\"\`\\\\n\\\\n\\\\n ../node_modules/.bin/datadog-ci react-native xcode \`\\\\\\"$NODE_BINARY\\\\\\" --service com.company.app --print \\\\\\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\\\\\"\`\\""`
       );
     });
   });
