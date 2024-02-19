@@ -6,8 +6,8 @@
 
 import { withAppBuildGradle } from "@expo/config-plugins";
 
-import buildGradle from "./__fixtures__/build.gradle";
 import withAndroidSourcemaps from "../withAndroidSourcemaps/withAndroidSourcemaps";
+import buildGradle from "./__fixtures__/build.gradle";
 
 jest.mock("@expo/config-plugins", () => {
   return {
@@ -42,40 +42,9 @@ describe("withAndroidSourcemaps", () => {
   beforeEach(() => {
     (withAppBuildGradle as any).mockClear();
   });
-  describe("without datadog serviceName option", () => {
-    it("adds datadog sourcemaps gradle plugin", async () => {
-      mockAppBuildGradle(buildGradle);
-      const result = (await withAndroidSourcemaps({})(
-        createFakeConfig()
-      )) as any;
-      expect(result.modResults.contents).toMatch("datadog-sourcemaps.gradle");
-      expect(result.modResults.contents).not.toMatch("serviceName =");
-    });
-  });
-  describe("with datadog serviceName option", () => {
-    it("sets datadog sdk serviceName config", async () => {
-      mockAppBuildGradle(buildGradle);
-      const result = (await withAndroidSourcemaps({
-        serviceName: "com.company.app",
-      })(createFakeConfig())) as any;
-      expect(result.modResults.contents).toMatch(
-        'serviceName = "com.company.app"'
-      );
-    });
-    it("preserves existing datadog config", async () => {
-      const configBlock = [
-        `datadog {`,
-        `    checkProjectDependencies = "none"`,
-        `}`,
-        ``,
-      ].join("\n");
-      mockAppBuildGradle(`${configBlock}${buildGradle}`);
-      const result = (await withAndroidSourcemaps({
-        serviceName: "com.company.app",
-      })(createFakeConfig())) as any;
-      expect(result.modResults.contents).toMatch(
-        'checkProjectDependencies = "none"'
-      );
-    });
+  it("adds datadog sourcemaps gradle plugin", async () => {
+    mockAppBuildGradle(buildGradle);
+    const result = (await withAndroidSourcemaps(createFakeConfig())) as any;
+    expect(result.modResults.contents).toMatch("datadog-sourcemaps.gradle");
   });
 });

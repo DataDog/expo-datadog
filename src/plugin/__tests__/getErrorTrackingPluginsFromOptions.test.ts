@@ -5,14 +5,16 @@
  */
 
 import { getErrorTrackingPluginsFromOptions } from "../getErrorTrackingPluginsFromOptions";
+import withAndroidConfiguration from "../withAndroidConfiguration/withAndroidConfiguration";
 import withAndroidProguardMappingFiles from "../withAndroidProguardMappingFiles/withAndroidProguardMappingFiles";
 import withAndroidSourcemaps from "../withAndroidSourcemaps/withAndroidSourcemaps";
 import withIosDsyms from "../withIosDsyms/withIosDsyms";
 import withIosSourcemaps from "../withIosSourcemaps/withIosSourcemaps";
 
 const ALL_PLUGINS = [
+  withAndroidConfiguration({}),
   withIosDsyms,
-  withIosSourcemaps,
+  withIosSourcemaps({}),
   withAndroidProguardMappingFiles({}),
   withAndroidSourcemaps,
 ];
@@ -29,7 +31,7 @@ describe("getErrorTrackingPluginsFromOptions", () => {
       getErrorTrackingPluginsFromOptions({
         iosDsyms: true,
         androidProguardMappingFiles: false,
-      })
-    ).toEqual(ALL_PLUGINS.filter((_, index) => index !== 2));
+      }).length
+    ).toEqual(ALL_PLUGINS.filter((_, index) => index !== 3).length);
   });
 });

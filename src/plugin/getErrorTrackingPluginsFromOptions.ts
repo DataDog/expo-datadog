@@ -6,6 +6,7 @@
 
 import type { ConfigPlugin, StaticPlugin } from "@expo/config-plugins";
 
+import withAndroidGradleConfig from "./withAndroidConfiguration/withAndroidConfiguration";
 import withAndroidProguardMappingFiles, {
   AndroidProguardMappingFilesOptions,
 } from "./withAndroidProguardMappingFiles/withAndroidProguardMappingFiles";
@@ -63,9 +64,7 @@ export const getErrorTrackingPluginsFromOptions = (
     androidProguardMappingFiles: withAndroidProguardMappingFiles({
       datadogGradlePluginVersion: options?.datadogGradlePluginVersion,
     }),
-    androidSourcemaps: withAndroidSourcemaps({
-      serviceName: options?.serviceName,
-    }),
+    androidSourcemaps: withAndroidSourcemaps,
   };
 
   const configPluginsKeys = (
@@ -74,5 +73,10 @@ export const getErrorTrackingPluginsFromOptions = (
     ) as (keyof FileUploadOptions)[]
   ).filter((option) => !options || options[option] !== false);
 
-  return configPluginsKeys.map((key) => ERROR_TRACKING_CONFIG_PLUGINS_MAP[key]);
+  return [
+    withAndroidGradleConfig({
+      serviceName: options?.serviceName,
+    }),
+    ...configPluginsKeys.map((key) => ERROR_TRACKING_CONFIG_PLUGINS_MAP[key]),
+  ];
 };
