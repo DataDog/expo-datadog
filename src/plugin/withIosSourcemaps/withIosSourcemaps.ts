@@ -14,9 +14,9 @@ const SOURCEMAP_FILE_COMMAND =
 const getDatadogXCodeCommand = (
   serviceName: SourceMapUploadOptions["serviceName"]
 ) =>
-  `../node_modules/.bin/datadog-ci react-native xcode \`\\\"$NODE_BINARY\\\"${
+  `../node_modules/.bin/datadog-ci react-native xcode \`\\\"$NODE_BINARY\\\" --print \\\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\\"\`${
     serviceName ? ` --service ${serviceName}` : ""
-  } --print \\\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\\"\``;
+  }`;
 
 const withIosSourcemaps =
   (options: SourceMapUploadOptions): ConfigPlugin<void> =>
