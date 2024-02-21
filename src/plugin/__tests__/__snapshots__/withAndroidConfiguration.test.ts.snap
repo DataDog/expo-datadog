@@ -1,7 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`withAndroidConfiguration with datadog serviceName option adds a datadog config block with serviceName 1`] = `
-"datadog {
+"plugins {
+    id(\\"com.datadoghq.dd-sdk-android-gradle-plugin\\") version \\"1.+\\"
+}
+
+datadog {
     checkProjectDependencies = \\"none\\"
     serviceName = \\"com.company.app\\"
 }
@@ -180,7 +184,11 @@ applyNativeModulesAppBuildGradle(project)
 `;
 
 exports[`withAndroidConfiguration without datadog serviceName option adds a datadog config block 1`] = `
-"datadog {
+"plugins {
+    id(\\"com.datadoghq.dd-sdk-android-gradle-plugin\\") version \\"1.+\\"
+}
+
+datadog {
     checkProjectDependencies = \\"none\\"
 }
 apply plugin: \\"com.android.application\\"
