@@ -6,7 +6,7 @@
 
 import { withAppBuildGradle } from "@expo/config-plugins";
 
-import withAndroidProguardMappingFiles from "../withAndroidProguardMappingFiles/withAndroidProguardMappingFiles";
+import withAndroidSourcemaps from "../withAndroidSourcemaps/withAndroidSourcemaps";
 import buildGradle from "./__fixtures__/build.gradle";
 
 jest.mock("@expo/config-plugins", () => {
@@ -38,30 +38,13 @@ const createFakeConfig = () => ({
   slug: "project-name",
 });
 
-describe("withAndroidProguardMappingFiles", () => {
+describe("withAndroidSourcemaps", () => {
   beforeEach(() => {
     (withAppBuildGradle as any).mockClear();
   });
-  describe("without datadog gradle plugin version option", () => {
-    it("uses the default version", async () => {
-      mockAppBuildGradle(buildGradle);
-      const result = (await withAndroidProguardMappingFiles({})(
-        createFakeConfig()
-      )) as any;
-      expect(result.modResults.contents).toMatch(
-        'id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.+"'
-      );
-    });
-  });
-  describe("with datadog gradle plugin version option", () => {
-    it("sets the provided version", async () => {
-      mockAppBuildGradle(buildGradle);
-      const result = (await withAndroidProguardMappingFiles({
-        datadogGradlePluginVersion: "1.9.0",
-      })(createFakeConfig())) as any;
-      expect(result.modResults.contents).toMatch(
-        'id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.9.0"'
-      );
-    });
+  it("adds datadog sourcemaps gradle plugin", async () => {
+    mockAppBuildGradle(buildGradle);
+    const result = (await withAndroidSourcemaps(createFakeConfig())) as any;
+    expect(result.modResults.contents).toMatch("datadog-sourcemaps.gradle");
   });
 });

@@ -40,10 +40,6 @@ const withAndroidProguardMappingFiles =
         `    id("com.datadoghq.dd-sdk-android-gradle-plugin") version "${datadogGradlePluginVersion}"`,
         `}`,
         ``,
-        `datadog {`,
-        `    checkProjectDependencies = "none"`,
-        `}`,
-        ``,
       ].join("\n");
 
       // Automate the plugin to run after each build
