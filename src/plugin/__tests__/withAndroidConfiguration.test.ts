@@ -48,6 +48,9 @@ describe("withAndroidConfiguration", () => {
       const result = (await withAndroidConfiguration({})(
         createFakeConfig()
       )) as any;
+      expect(result.modResults.contents).toMatch(
+        'id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.+"'
+      );
       expect(result.modResults.contents).toMatchSnapshot();
     });
   });
@@ -58,6 +61,17 @@ describe("withAndroidConfiguration", () => {
         serviceName: "com.company.app",
       })(createFakeConfig())) as any;
       expect(result.modResults.contents).toMatchSnapshot();
+    });
+  });
+  describe("with datadog gradle plugin version option", () => {
+    it("sets the provided version", async () => {
+      mockAppBuildGradle(buildGradle);
+      const result = (await withAndroidConfiguration({
+        datadogGradlePluginVersion: "1.9.0",
+      })(createFakeConfig())) as any;
+      expect(result.modResults.contents).toMatch(
+        'id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.9.0"'
+      );
     });
   });
 });

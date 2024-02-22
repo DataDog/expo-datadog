@@ -7,9 +7,7 @@
 import type { ConfigPlugin, StaticPlugin } from "@expo/config-plugins";
 
 import withAndroidConfiguration from "./withAndroidConfiguration/withAndroidConfiguration";
-import withAndroidProguardMappingFiles, {
-  AndroidProguardMappingFilesOptions,
-} from "./withAndroidProguardMappingFiles/withAndroidProguardMappingFiles";
+import withAndroidProguardMappingFiles from "./withAndroidProguardMappingFiles/withAndroidProguardMappingFiles";
 import withAndroidSourcemaps from "./withAndroidSourcemaps/withAndroidSourcemaps";
 import withIosDsyms from "./withIosDsyms/withIosDsyms";
 import withIosSourcemaps from "./withIosSourcemaps/withIosSourcemaps";
@@ -42,6 +40,14 @@ export type SourceMapUploadOptions = {
   serviceName?: string;
 };
 
+export type AndroidProguardMappingFilesOptions = {
+  /**
+   * Version of dd-sdk-android-gradle-plugin used for Proguard mapping files
+   * upload (default: "1.+").
+   */
+  datadogGradlePluginVersion?: string;
+};
+
 export type ErrorTrackingOptions = FileUploadOptions &
   SourceMapUploadOptions &
   AndroidProguardMappingFilesOptions;
@@ -61,9 +67,7 @@ export const getErrorTrackingPluginsFromOptions = (
     iosSourcemaps: withIosSourcemaps({
       serviceName: options?.serviceName,
     }),
-    androidProguardMappingFiles: withAndroidProguardMappingFiles({
-      datadogGradlePluginVersion: options?.datadogGradlePluginVersion,
-    }),
+    androidProguardMappingFiles: withAndroidProguardMappingFiles(),
     androidSourcemaps: withAndroidSourcemaps,
   };
 
@@ -77,6 +81,7 @@ export const getErrorTrackingPluginsFromOptions = (
     ...configPluginsKeys.map((key) => ERROR_TRACKING_CONFIG_PLUGINS_MAP[key]),
     withAndroidConfiguration({
       serviceName: options?.serviceName,
+      datadogGradlePluginVersion: options?.datadogGradlePluginVersion,
     }),
   ];
 };

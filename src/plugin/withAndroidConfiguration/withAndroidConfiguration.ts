@@ -7,10 +7,17 @@
 import type { ConfigPlugin } from "@expo/config-plugins";
 import { withAppBuildGradle } from "@expo/config-plugins";
 
-import { SourceMapUploadOptions } from "../getErrorTrackingPluginsFromOptions";
+import {
+  AndroidProguardMappingFilesOptions,
+  SourceMapUploadOptions,
+} from "../getErrorTrackingPluginsFromOptions";
+
+const DEFAULT_DATADOG_GRADLE_PLUGIN_VERSION = "1.+";
 
 const withAndroidConfiguration =
-  (options: SourceMapUploadOptions): ConfigPlugin<void> =>
+  (
+    options: SourceMapUploadOptions & AndroidProguardMappingFilesOptions
+  ): ConfigPlugin<void> =>
   (config) => {
     return withAppBuildGradle(config, async (config) => {
       const appBuildGradle = config.modResults;
@@ -18,8 +25,18 @@ const withAndroidConfiguration =
         return config;
       }
 
-      // Add the configuration for the Android Gradle Plugin
+      const datadogGradlePluginVersion =
+        options.datadogGradlePluginVersion ||
+        DEFAULT_DATADOG_GRADLE_PLUGIN_VERSION;
+
+      // We could set the serviceName through project.ext.datadog when proguard mapping
+      // files upload is disabled, but it is simpler to always have the plugin installed
+      // and use the datadog closure to provide it to both android file uploads.
       const configBlock = [
+        `plugins {`,
+        `    id("com.datadoghq.dd-sdk-android-gradle-plugin") version "${datadogGradlePluginVersion}"`,
+        `}`,
+        ``,
         `datadog {`,
         `    checkProjectDependencies = "none"`,
         `}`,
@@ -28,7 +45,7 @@ const withAndroidConfiguration =
 
       if (options.serviceName) {
         const serviceNameBlock = `    serviceName = "${options.serviceName}"`;
-        configBlock.splice(2, 0, serviceNameBlock);
+        configBlock.splice(6, 0, serviceNameBlock);
       }
 
       appBuildGradle.contents = `${configBlock.join("\n")}${

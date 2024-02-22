@@ -15,7 +15,7 @@ const ALL_PLUGINS = [
   withAndroidConfiguration({}),
   withIosDsyms,
   withIosSourcemaps({}),
-  withAndroidProguardMappingFiles({}),
+  withAndroidProguardMappingFiles(),
   withAndroidSourcemaps,
 ];
 
