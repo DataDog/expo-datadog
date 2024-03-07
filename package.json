@@ -13,10 +13,10 @@
     "prepublishOnly": "expo-module prepublishOnly",
     "expo-module": "expo-module"
   },
-  "homepage": "https://github.com/DataDog/dd-sdk-reactnative/expo",
-  "repository": "https://github.com/DataDog/dd-sdk-reactnative",
+  "homepage": "https://github.com/DataDog/expo-datadog",
+  "repository": "https://github.com/DataDog/expo-datadog",
   "bugs": {
-    "url": "https://github.com/DataDog/dd-sdk-reactnative/issues"
+    "url": "https://github.com/DataDog/expo-datadog/issues"
   },
   "files": [
     "src",
