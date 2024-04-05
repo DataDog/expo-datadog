@@ -26,7 +26,7 @@ const withIosDsyms: ConfigPlugin<void> = (config) => {
       BUILD_PHASE_NAME,
       null /* target */,
       {
-        shellScript: `set -e\\n ../node_modules/.bin/datadog-ci dsyms upload $DWARF_DSYM_FOLDER_PATH`,
+        shellScript: `set -e\\n npx datadog-ci dsyms upload $DWARF_DSYM_FOLDER_PATH`,
         shellPath: "/bin/sh",
       }
     );
