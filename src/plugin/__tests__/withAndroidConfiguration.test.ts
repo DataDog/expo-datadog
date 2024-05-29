@@ -49,7 +49,7 @@ describe("withAndroidConfiguration", () => {
         createFakeConfig()
       )) as any;
       expect(result.modResults.contents).toMatch(
-        'id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.+"'
+        'id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.14.0"'
       );
       expect(result.modResults.contents).toMatchSnapshot();
     });

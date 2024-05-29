@@ -1,6 +1,6 @@
 {
   "name": "expo-datadog",
-  "version": "50.2.0",
+  "version": "51.0.0",
   "description": "A client-side Expo module to interact with Datadog",
   "main": "build/index.js",
   "scripts": {
@@ -36,11 +36,12 @@
     "eslint-config-prettier": "^8.8.0",
     "expo-module-scripts": "^3.0.9",
     "jest": "26.6.3",
+    "jest-watch-typeahead": "0.6.5",
     "prettier": "^2.7.1"
   },
   "peerDependencies": {
     "@datadog/mobile-react-native": ">=1.0.0",
-    "expo": "50.x"
+    "expo": "51.x"
   },
   "packageManager": "yarn@3.6.1"
 }

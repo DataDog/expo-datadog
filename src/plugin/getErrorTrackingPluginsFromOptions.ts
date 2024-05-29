@@ -43,7 +43,7 @@ export type SourceMapUploadOptions = {
 export type AndroidProguardMappingFilesOptions = {
   /**
    * Version of dd-sdk-android-gradle-plugin used for Proguard mapping files
-   * upload (default: "1.+").
+   * upload (default: "1.14.0").
    */
   datadogGradlePluginVersion?: string;
 };
