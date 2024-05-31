@@ -14,7 +14,7 @@ const withIosDsyms: ConfigPlugin<void> = (config) => {
     const xcodeProject = config.modResults;
     const buildPhase = xcodeProject.pbxItemByComment(
       BUILD_PHASE_NAME,
-      "PBXShellScriptBuildPhase"
+      "PBXShellScriptBuildPhase",
     );
     if (buildPhase) {
       return config;
@@ -28,7 +28,7 @@ const withIosDsyms: ConfigPlugin<void> = (config) => {
       {
         shellScript: `set -e\\n ../node_modules/.bin/datadog-ci dsyms upload $DWARF_DSYM_FOLDER_PATH`,
         shellPath: "/bin/sh",
-      }
+      },
     );
 
     return config;

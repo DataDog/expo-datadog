@@ -12,7 +12,7 @@ import { SourceMapUploadOptions } from "../getErrorTrackingPluginsFromOptions";
 const SOURCEMAP_FILE_COMMAND =
   "export SOURCEMAP_FILE=$DERIVED_FILE_DIR/main.jsbundle.map";
 const getDatadogXCodeCommand = (
-  serviceName: SourceMapUploadOptions["serviceName"]
+  serviceName: SourceMapUploadOptions["serviceName"],
 ) =>
   `../node_modules/.bin/datadog-ci react-native xcode \`\\"$NODE_BINARY\\" --print \\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\"\`${
     serviceName ? ` --service ${serviceName}` : ""
@@ -25,7 +25,7 @@ const withIosSourcemaps =
       const xcodeProject = config.modResults;
       const bundlePhase = xcodeProject.pbxItemByComment(
         "Bundle React Native code and images",
-        "PBXShellScriptBuildPhase"
+        "PBXShellScriptBuildPhase",
       );
       if (bundlePhase.shellScript.match("datadog-ci react-native xcode")) {
         return config;
@@ -42,17 +42,17 @@ const withIosSourcemaps =
          */
         bundlePhase.shellScript = `${bundlePhase.shellScript.replace(
           /.$/,
-          ""
+          "",
         )}\\n ${getDatadogXCodeCommand(options.serviceName)}"`;
 
         return config;
       }
 
       const [beforeScript, afterScript] = bundlePhase.shellScript.split(
-        "`\\\"$NODE_BINARY\\\" --print \\\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\\"`"
+        "`\\\"$NODE_BINARY\\\" --print \\\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\\"`",
       );
       const datadogScript = `${SOURCEMAP_FILE_COMMAND}\\n ${getDatadogXCodeCommand(
-        options.serviceName
+        options.serviceName,
       )}`;
       bundlePhase.shellScript = `${beforeScript}${datadogScript}${afterScript}`;
 
