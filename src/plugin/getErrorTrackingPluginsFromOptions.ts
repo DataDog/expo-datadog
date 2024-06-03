@@ -43,7 +43,7 @@ export type SourceMapUploadOptions = {
 export type AndroidProguardMappingFilesOptions = {
   /**
    * Version of dd-sdk-android-gradle-plugin used for Proguard mapping files
-   * upload (default: "1.+").
+   * upload (default: "1.14.0").
    */
   datadogGradlePluginVersion?: string;
 };
@@ -57,7 +57,7 @@ export type ErrorTrackingOptions = FileUploadOptions &
  * to `false`.
  */
 export const getErrorTrackingPluginsFromOptions = (
-  options?: ErrorTrackingOptions
+  options?: ErrorTrackingOptions,
 ): (ConfigPlugin<any> | StaticPlugin<any>)[] => {
   const ERROR_TRACKING_CONFIG_PLUGINS_MAP: Record<
     keyof FileUploadOptions,
@@ -73,7 +73,7 @@ export const getErrorTrackingPluginsFromOptions = (
 
   const configPluginsKeys = (
     Object.keys(
-      ERROR_TRACKING_CONFIG_PLUGINS_MAP
+      ERROR_TRACKING_CONFIG_PLUGINS_MAP,
     ) as (keyof FileUploadOptions)[]
   ).filter((option) => !options || options[option] !== false);
 

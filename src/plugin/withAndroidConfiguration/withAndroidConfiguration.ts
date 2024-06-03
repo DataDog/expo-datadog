@@ -12,11 +12,11 @@ import {
   SourceMapUploadOptions,
 } from "../getErrorTrackingPluginsFromOptions";
 
-const DEFAULT_DATADOG_GRADLE_PLUGIN_VERSION = "1.+";
+const DEFAULT_DATADOG_GRADLE_PLUGIN_VERSION = "1.14.0";
 
 const withAndroidConfiguration =
   (
-    options: SourceMapUploadOptions & AndroidProguardMappingFilesOptions
+    options: SourceMapUploadOptions & AndroidProguardMappingFilesOptions,
   ): ConfigPlugin<void> =>
   (config) => {
     return withAppBuildGradle(config, async (config) => {

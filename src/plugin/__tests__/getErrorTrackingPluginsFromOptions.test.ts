@@ -22,7 +22,7 @@ const ALL_PLUGINS = [
 describe("getErrorTrackingPluginsFromOptions", () => {
   it("returns all plugins if no option is provided", () => {
     expect(getErrorTrackingPluginsFromOptions()).toHaveLength(
-      ALL_PLUGINS.length
+      ALL_PLUGINS.length,
     );
   });
 
@@ -31,7 +31,7 @@ describe("getErrorTrackingPluginsFromOptions", () => {
       getErrorTrackingPluginsFromOptions({
         iosDsyms: true,
         androidProguardMappingFiles: false,
-      }).length
+      }).length,
     ).toEqual(ALL_PLUGINS.filter((_, index) => index !== 3).length);
   });
 });

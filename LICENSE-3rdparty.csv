@@ -9,3 +9,4 @@ eslint-config-prettier,dev,MIT,"Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022
 expo-module-scripts,dev,MIT,"Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)"
 jest,dev,MIT,"Copyright (c) Facebook, Inc. and its affiliates."
 prettier,dev,MIT,"Copyright © James Long and contributors"
+jest-watch-typeahead,dev,MIT,"Copyright (c) 2018 Rogelio Guzman"

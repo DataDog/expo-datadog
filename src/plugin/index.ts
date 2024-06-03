@@ -21,7 +21,7 @@ type PluginConfiguration =
 const withDatadog: ConfigPlugin<PluginConfiguration> = (config, options) => {
   return withPlugins(
     config,
-    getErrorTrackingPluginsFromOptions(options && options.errorTracking)
+    getErrorTrackingPluginsFromOptions(options && options.errorTracking),
   );
 };
 
