@@ -7,14 +7,15 @@
 import type { ConfigPlugin } from "@expo/config-plugins";
 import { withXcodeProject } from "@expo/config-plugins";
 
-const BUILD_PHASE_NAME = "Upload dSYMs to Datadog";
+import { IOS_DSYMS_BUILD_PHASE_NAME } from "../common/config";
+import { IOS_DATADOG_CI_EXPORT } from "../common/exports";
 
 const withIosDsyms: ConfigPlugin<void> = (config) => {
   return withXcodeProject(config, async (config) => {
     const xcodeProject = config.modResults;
     const buildPhase = xcodeProject.pbxItemByComment(
-      BUILD_PHASE_NAME,
-      "PBXShellScriptBuildPhase",
+      IOS_DSYMS_BUILD_PHASE_NAME,
+      "PBXShellScriptBuildPhase"
     );
     if (buildPhase) {
       return config;
@@ -23,12 +24,28 @@ const withIosDsyms: ConfigPlugin<void> = (config) => {
     xcodeProject.addBuildPhase(
       [],
       "PBXShellScriptBuildPhase",
-      BUILD_PHASE_NAME,
+      IOS_DSYMS_BUILD_PHASE_NAME,
       null /* target */,
       {
-        shellScript: `set -e\\n ../node_modules/.bin/datadog-ci dsyms upload $DWARF_DSYM_FOLDER_PATH`,
+        shellScript: `set -e
+
+        if [[ -f "$PODS_ROOT/../.xcode.env" ]]; then
+          source "$PODS_ROOT/../.xcode.env"
+        fi
+        if [[ -f "$PODS_ROOT/../.xcode.env.local" ]]; then
+          source "$PODS_ROOT/../.xcode.env.local"
+        fi
+        
+        if [[ -z "$NODE_BINARY" ]]; then
+            echo "ERROR: NODE_BINARY env variable is not set"
+        fi
+        
+        ${IOS_DATADOG_CI_EXPORT}
+        
+        $DATADOG_CI_EXEC dsyms upload $DWARF_DSYM_FOLDER_PATH
+        `,
         shellPath: "/bin/sh",
-      },
+      }
     );
 
     return config;

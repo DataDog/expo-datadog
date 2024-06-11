@@ -6,8 +6,8 @@
 
 import { withAppBuildGradle } from "@expo/config-plugins";
 
-import buildGradle from "./__fixtures__/build.gradle";
 import withAndroidConfiguration from "../withAndroidConfiguration/withAndroidConfiguration";
+import buildGradle from "./__fixtures__/build.gradle";
 
 jest.mock("@expo/config-plugins", () => {
   return {
@@ -46,10 +46,10 @@ describe("withAndroidConfiguration", () => {
     it("adds a datadog config block", async () => {
       mockAppBuildGradle(buildGradle);
       const result = (await withAndroidConfiguration({})(
-        createFakeConfig(),
+        createFakeConfig()
       )) as any;
       expect(result.modResults.contents).toMatch(
-        'id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.14.0"',
+        'id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.14.0"'
       );
       expect(result.modResults.contents).toMatchSnapshot();
     });
@@ -70,7 +70,7 @@ describe("withAndroidConfiguration", () => {
         datadogGradlePluginVersion: "1.9.0",
       })(createFakeConfig())) as any;
       expect(result.modResults.contents).toMatch(
-        'id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.9.0"',
+        'id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.9.0"'
       );
     });
   });
