@@ -7,16 +7,15 @@
 import type { ConfigPlugin } from "@expo/config-plugins";
 import { withAppBuildGradle } from "@expo/config-plugins";
 
+import { DEFAULT_DATADOG_GRADLE_PLUGIN_VERSION } from "../common/config";
 import {
   AndroidProguardMappingFilesOptions,
   SourceMapUploadOptions,
 } from "../getErrorTrackingPluginsFromOptions";
 
-const DEFAULT_DATADOG_GRADLE_PLUGIN_VERSION = "1.14.0";
-
 const withAndroidConfiguration =
   (
-    options: SourceMapUploadOptions & AndroidProguardMappingFilesOptions,
+    options: SourceMapUploadOptions & AndroidProguardMappingFilesOptions
   ): ConfigPlugin<void> =>
   (config) => {
     return withAppBuildGradle(config, async (config) => {

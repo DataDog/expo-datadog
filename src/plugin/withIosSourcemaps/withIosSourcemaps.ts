@@ -7,16 +7,22 @@
 import type { ConfigPlugin } from "@expo/config-plugins";
 import { withXcodeProject } from "@expo/config-plugins";
 
+import {
+  IOS_DATADOG_CI_EXPORT,
+  IOS_SOURCEMAP_FILE_EXPORT,
+} from "../common/exports";
+import { escapeStringForIOSBuildPhase } from "../common/utils";
 import { SourceMapUploadOptions } from "../getErrorTrackingPluginsFromOptions";
 
-const SOURCEMAP_FILE_COMMAND =
-  "export SOURCEMAP_FILE=$DERIVED_FILE_DIR/main.jsbundle.map";
+const DATADOG_XCODE_COMMAND = escapeStringForIOSBuildPhase(`
+${IOS_DATADOG_CI_EXPORT}
+
+$DATADOG_CI_EXEC react-native xcode \`"$NODE_BINARY" --print "require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'"\`
+`);
 const getDatadogXCodeCommand = (
-  serviceName: SourceMapUploadOptions["serviceName"],
+  serviceName: SourceMapUploadOptions["serviceName"]
 ) =>
-  `../node_modules/.bin/datadog-ci react-native xcode \`\\"$NODE_BINARY\\" --print \\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\"\`${
-    serviceName ? ` --service ${serviceName}` : ""
-  }`;
+  `${DATADOG_XCODE_COMMAND}${serviceName ? ` --service ${serviceName}` : ""}`;
 
 const withIosSourcemaps =
   (options: SourceMapUploadOptions): ConfigPlugin<void> =>
@@ -25,7 +31,7 @@ const withIosSourcemaps =
       const xcodeProject = config.modResults;
       const bundlePhase = xcodeProject.pbxItemByComment(
         "Bundle React Native code and images",
-        "PBXShellScriptBuildPhase",
+        "PBXShellScriptBuildPhase"
       );
       if (bundlePhase.shellScript.match("datadog-ci react-native xcode")) {
         return config;
@@ -42,17 +48,17 @@ const withIosSourcemaps =
          */
         bundlePhase.shellScript = `${bundlePhase.shellScript.replace(
           /.$/,
-          "",
+          ""
         )}\\n ${getDatadogXCodeCommand(options.serviceName)}"`;
 
         return config;
       }
 
       const [beforeScript, afterScript] = bundlePhase.shellScript.split(
-        "`\\\"$NODE_BINARY\\\" --print \\\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\\"`",
+        "`\\\"$NODE_BINARY\\\" --print \\\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\\"`"
       );
-      const datadogScript = `${SOURCEMAP_FILE_COMMAND}\\n ${getDatadogXCodeCommand(
-        options.serviceName,
+      const datadogScript = `${IOS_SOURCEMAP_FILE_EXPORT}\\n ${getDatadogXCodeCommand(
+        options.serviceName
       )}`;
       bundlePhase.shellScript = `${beforeScript}${datadogScript}${afterScript}`;
 

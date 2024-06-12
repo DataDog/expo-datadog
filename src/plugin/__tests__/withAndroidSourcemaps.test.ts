@@ -6,8 +6,8 @@
 
 import { withAppBuildGradle } from "@expo/config-plugins";
 
-import buildGradle from "./__fixtures__/build.gradle";
 import withAndroidSourcemaps from "../withAndroidSourcemaps/withAndroidSourcemaps";
+import buildGradle from "./__fixtures__/build.gradle";
 
 jest.mock("@expo/config-plugins", () => {
   return {
