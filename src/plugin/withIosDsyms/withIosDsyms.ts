@@ -29,20 +29,19 @@ const withIosDsyms: ConfigPlugin<void> = (config) => {
       {
         shellScript: `set -e
 
-        if [[ -f "$PODS_ROOT/../.xcode.env" ]]; then
-          source "$PODS_ROOT/../.xcode.env"
-        fi
-        if [[ -f "$PODS_ROOT/../.xcode.env.local" ]]; then
-          source "$PODS_ROOT/../.xcode.env.local"
-        fi
-        
-        if [[ -z "$NODE_BINARY" ]]; then
-            echo "ERROR: NODE_BINARY env variable is not set"
-        fi
-        
-        ${IOS_DATADOG_CI_EXPORT}
-        
-        $DATADOG_CI_EXEC dsyms upload $DWARF_DSYM_FOLDER_PATH
+if [[ -f "$PODS_ROOT/../.xcode.env" ]]; then
+  source "$PODS_ROOT/../.xcode.env"
+fi
+
+if [[ -f "$PODS_ROOT/../.xcode.env.local" ]]; then
+  source "$PODS_ROOT/../.xcode.env.local"
+fi
+
+if [[ -z "$NODE_BINARY" ]]; then
+    echo "ERROR: NODE_BINARY env variable is not set"
+fi
+${IOS_DATADOG_CI_EXPORT}
+$DATADOG_CI_EXEC dsyms upload $DWARF_DSYM_FOLDER_PATH
         `,
         shellPath: "/bin/sh",
       }
