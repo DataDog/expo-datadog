@@ -1,6 +1,6 @@
 {
   "name": "expo-datadog",
-  "version": "51.0.1",
+  "version": "51.0.2",
   "description": "A client-side Expo module to interact with Datadog",
   "main": "build/index.js",
   "scripts": {
