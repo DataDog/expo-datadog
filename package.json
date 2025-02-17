@@ -1,6 +1,6 @@
 {
   "name": "expo-datadog",
-  "version": "51.0.2",
+  "version": "52.0.0",
   "description": "A client-side Expo module to interact with Datadog",
   "main": "build/index.js",
   "scripts": {
@@ -41,7 +41,7 @@
   },
   "peerDependencies": {
     "@datadog/mobile-react-native": ">=1.0.0",
-    "expo": "51.x"
+    "expo": "52.x"
   },
   "packageManager": "yarn@3.6.1"
 }
