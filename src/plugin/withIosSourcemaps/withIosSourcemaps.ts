@@ -17,8 +17,7 @@ import { SourceMapUploadOptions } from "../getErrorTrackingPluginsFromOptions";
 const DATADOG_XCODE_COMMAND = escapeStringForIOSBuildPhase(`
 ${IOS_DATADOG_CI_EXPORT}
 
-$DATADOG_CI_EXEC react-native xcode \`"$NODE_BINARY" --print "require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'"\`
-`);
+$DATADOG_CI_EXEC react-native xcode \`"$NODE_BINARY" --print "require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'"\``);
 const getDatadogXCodeCommand = (
   serviceName: SourceMapUploadOptions["serviceName"]
 ) =>
