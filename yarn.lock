@@ -5494,8 +5494,8 @@ __metadata:
     jest-watch-typeahead: 0.6.5
     prettier: ^2.7.1
   peerDependencies:
-    "@datadog/mobile-react-native": ">=1.0.0"
-    expo: 52.x
+    "@datadog/mobile-react-native": ">=2.0.0"
+    expo: 53.x
   languageName: unknown
   linkType: soft
 
