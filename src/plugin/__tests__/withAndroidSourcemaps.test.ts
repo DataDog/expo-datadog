@@ -22,6 +22,9 @@ const mockAppBuildGradle = (mockContent: string) => {
     // @ts-ignore
     return callback({
       ...config,
+      modRequest: {
+        projectRoot: '..'
+      },
       modResults: {
         contents: mockContent,
       },
@@ -45,6 +48,6 @@ describe("withAndroidSourcemaps", () => {
   it("adds datadog sourcemaps gradle plugin", async () => {
     mockAppBuildGradle(buildGradle);
     const result = (await withAndroidSourcemaps(createFakeConfig())) as any;
-    expect(result.modResults.contents).toMatch("datadog-sourcemaps.gradle");
+    expect(result.modResults.contents).toMatch("../../expo-datadog/node_modules/@datadog/mobile-react-native/datadog-sourcemaps.gradle");
   });
 });
