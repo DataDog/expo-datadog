@@ -6,6 +6,7 @@
 
 import type { ConfigPlugin } from "@expo/config-plugins";
 import { withAppBuildGradle } from "@expo/config-plugins";
+import path from "path";
 
 const withAndroidSourcemaps: ConfigPlugin<void> = (config) => {
   return withAppBuildGradle(config, async (config) => {
@@ -13,11 +14,18 @@ const withAndroidSourcemaps: ConfigPlugin<void> = (config) => {
     if (appBuildGradle.contents.match("datadog-sourcemaps.gradle")) {
       return config;
     }
-
-    const sourcemapsGradlePath = `${require("path").dirname(
+    const datadogNodeModulesRoot = path.dirname(
       require.resolve("@datadog/mobile-react-native/package.json")
-    )}/datadog-sourcemaps.gradle`.replace(/\\/g, "/");
-
+    );
+    const gradlePluginRelativePath = path.relative(
+      path.join(config.modRequest.projectRoot, "android", "app"),
+      path.join(datadogNodeModulesRoot)
+    );
+    const sourcemapsGradlePath =
+      `${gradlePluginRelativePath}/datadog-sourcemaps.gradle`.replace(
+        /\\/g,
+        "/"
+      );
     appBuildGradle.contents = appBuildGradle.contents.replace(
       /apply plugin: "com\.facebook\.react"/,
       `apply plugin: "com.facebook.react"\napply from: "${sourcemapsGradlePath}"`
