@@ -5,6 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "build": "expo-module build",
+    "build-ci": "expo-module prepublishOnly",
     "clean": "expo-module clean",
     "check-licenses": "node bin/check-licenses.js",
     "test": "expo-module test",
