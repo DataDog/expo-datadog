@@ -48,7 +48,9 @@ const withIosSourcemaps =
         bundlePhase.shellScript = `${bundlePhase.shellScript.replace(
           /.$/,
           ""
-        )}\\n ${getDatadogXCodeCommand(options.serviceName)}"`;
+        )}\\n ${IOS_SOURCEMAP_FILE_EXPORT}\\n ${getDatadogXCodeCommand(
+          options.serviceName
+        )}"`;
 
         return config;
       }
