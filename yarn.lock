@@ -3274,6 +3274,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pkgr/core@npm:^0.2.9":
+  version: 0.2.9
+  resolution: "@pkgr/core@npm:0.2.9"
+  checksum: bb2fb86977d63f836f8f5b09015d74e6af6488f7a411dcd2bfdca79d76b5a681a9112f41c45bdf88a9069f049718efc6f3900d7f1de66a2ec966068308ae517f
+  languageName: node
+  linkType: hard
+
 "@react-native/normalize-color@npm:^2.0.0":
   version: 2.0.0
   resolution: "@react-native/normalize-color@npm:2.0.0"
@@ -5511,6 +5518,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-plugin-prettier@npm:^5.5.5":
+  version: 5.5.5
+  resolution: "eslint-plugin-prettier@npm:5.5.5"
+  dependencies:
+    prettier-linter-helpers: ^1.0.1
+    synckit: ^0.11.12
+  peerDependencies:
+    "@types/eslint": ">=8.0.0"
+    eslint: ">=8.0.0"
+    eslint-config-prettier: ">= 7.0.0 <10.0.0 || >=10.1.0"
+    prettier: ">=3.0.0"
+  peerDependenciesMeta:
+    "@types/eslint":
+      optional: true
+    eslint-config-prettier:
+      optional: true
+  checksum: 49b1c25d75ded255a8707d5f06288ae86e8ab4f8e273d4aabdabf73cd0903848916d5a3598ba8be82f2c8dd06769c5e6c172503b3b9cfb2636b6fc23b9c024fb
+  languageName: node
+  linkType: hard
+
 "eslint-plugin-react-hooks@npm:^4.5.0":
   version: 4.6.0
   resolution: "eslint-plugin-react-hooks@npm:4.6.0"
@@ -5800,6 +5827,7 @@ __metadata:
     "@typescript-eslint/typescript-estree": 5.20.0
     eslint: 8.57.1
     eslint-config-prettier: ^8.10.2
+    eslint-plugin-prettier: ^5.5.5
     expo-module-scripts: ^3.0.9
     jest: ^29.7.0
     jest-watch-typeahead: 0.6.5
@@ -8680,6 +8708,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier-linter-helpers@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "prettier-linter-helpers@npm:1.0.1"
+  dependencies:
+    fast-diff: ^1.1.2
+  checksum: 2dc35f5036a35f4c4f5e645887edda1436acb63687a7f12b2383e0a6f3c1f76b8a0a4709fe4d82e19157210feb5984b159bb714d43290022911ab53d606474ec
+  languageName: node
+  linkType: hard
+
 "prettier@npm:^2.8.8":
   version: 2.8.8
   resolution: "prettier@npm:2.8.8"
@@ -9670,6 +9707,15 @@ __metadata:
   version: 3.2.4
   resolution: "symbol-tree@npm:3.2.4"
   checksum: 6e8fc7e1486b8b54bea91199d9535bb72f10842e40c79e882fc94fb7b14b89866adf2fd79efa5ebb5b658bc07fb459ccce5ac0e99ef3d72f474e74aaf284029d
+  languageName: node
+  linkType: hard
+
+"synckit@npm:^0.11.12":
+  version: 0.11.12
+  resolution: "synckit@npm:0.11.12"
+  dependencies:
+    "@pkgr/core": ^0.2.9
+  checksum: a53fb563d01ba8912a111b883fc3c701e267896ff8273e7aba9001f5f74711e125888f4039e93060795cd416122cf492ae419eb10a6a3e3b00e830917669d2cf
   languageName: node
   linkType: hard
 
