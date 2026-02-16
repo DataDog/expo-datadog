@@ -9,8 +9,13 @@ export const IOS_SOURCEMAP_FILE_EXPORT =
 
 export const IOS_DATADOG_CI_EXPORT = `
 if [[ -z "$DATADOG_CI_EXEC" ]]; then
+    # Ensure node is available in PATH for scripts using #!/usr/bin/env node
+    if [[ -n "$NODE_BINARY" ]]; then
+        export PATH="$(dirname "$NODE_BINARY"):$PATH"
+    fi
+
     DATADOG_CI_EXEC="$("$NODE_BINARY" --print "require('path').resolve(require('path').dirname(require.resolve('@datadog/datadog-ci/package.json')), '../../.bin/datadog-ci')")";
-    
+
     # Check if the file exists and is executable
     if [[ -x "$DATADOG_CI_EXEC" ]]; then
         export DATADOG_CI_EXEC;
