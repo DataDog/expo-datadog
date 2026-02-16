@@ -10,3 +10,4 @@ expo-module-scripts,dev,MIT,"Copyright (c) 2015-present 650 Industries, Inc. (ak
 jest,dev,MIT,"Copyright (c) Facebook, Inc. and its affiliates."
 prettier,dev,MIT,"Copyright © James Long and contributors"
 jest-watch-typeahead,dev,MIT,"Copyright (c) 2018 Rogelio Guzman"
+eslint-plugin-prettier,dev,MIT,"Copyright © 2017 Andres Suarez and Teddy Katz"
