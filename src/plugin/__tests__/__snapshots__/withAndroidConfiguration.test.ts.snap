@@ -2,7 +2,7 @@
 
 exports[`withAndroidConfiguration with datadog serviceName option adds a datadog config block with serviceName 1`] = `
 "plugins {
-    id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.14.0"
+    id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.22.0"
 }
 
 datadog {
@@ -185,7 +185,7 @@ applyNativeModulesAppBuildGradle(project)
 
 exports[`withAndroidConfiguration without datadog serviceName option adds a datadog config block 1`] = `
 "plugins {
-    id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.14.0"
+    id("com.datadoghq.dd-sdk-android-gradle-plugin") version "1.22.0"
 }
 
 datadog {
