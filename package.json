@@ -45,5 +45,8 @@
     "@datadog/mobile-react-native": ">=2.0.0",
     "expo": "54.x"
   },
+  "resolutions": {
+    "json5": "^1.0.2"
+  },
   "packageManager": "yarn@3.6.1"
 }
