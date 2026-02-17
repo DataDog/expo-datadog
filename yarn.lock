@@ -2093,6 +2093,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.28.6":
+  version: 7.28.6
+  resolution: "@babel/runtime@npm:7.28.6"
+  checksum: 42d8a868c2fc2e9a77927945a6daa7ec03c7ea49e611e0d15442933cdabb12f20e3a6849c729259076c10a4247adec229331d1f94c2d0073ea0979d7853e29fd
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.18.10, @babel/template@npm:^7.18.6, @babel/template@npm:^7.3.3":
   version: 7.18.10
   resolution: "@babel/template@npm:7.18.10"
@@ -5904,6 +5911,7 @@ __metadata:
   resolution: "expo-datadog@workspace:."
   dependencies:
     "@babel/plugin-transform-runtime": ^7.29.0
+    "@babel/runtime": ^7.28.6
     "@datadog/mobile-react-native": latest
     "@types/jest": 26.0.24
     "@typescript-eslint/eslint-plugin": 5.20.0
