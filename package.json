@@ -46,8 +46,11 @@
   "packageManager": "yarn@3.6.1",
   "resolutions": {
     "json5": "^1.0.2",
-    "tar": "^7.5.7",
+    "tar": "^7.5.16",
     "cacache/glob": "^10.5.0",
-    "js-yaml": "^4.1.1"
+    "js-yaml": "^4.2.0",
+    "brace-expansion": "^1.1.15",
+    "minimatch": "^9.0.9",
+    "picomatch": "^4.0.4"
   }
 }
