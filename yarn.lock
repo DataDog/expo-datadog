@@ -4576,7 +4576,7 @@ __metadata:
     prettier: ^2.8.8
   peerDependencies:
     "@datadog/mobile-react-native": ">=2.0.0"
-    expo: 56.x
+    expo: 57.x
   languageName: unknown
   linkType: soft
 
