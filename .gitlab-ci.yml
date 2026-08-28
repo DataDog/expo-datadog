@@ -1,0 +1,34 @@
+include:
+  - "https://gitlab-templates.ddbuild.io/slack-notifier/v3-sdm/template.yml"
+
+stages:
+  - test
+  - notify
+
+.test-job:
+  tags: ["macos:sequoia-arm64", "specific:true"]
+  stage: test
+  interruptible: true
+  timeout: 15m
+  before_script:
+    - yarn install --immutable
+
+test:lint:
+  extends: .test-job
+  script:
+    - yarn lint
+
+test:js:
+  extends: .test-job
+  script:
+    - yarn test --ci --runInBand --watchman=false
+
+test:build:
+  extends: .test-job
+  script:
+    - yarn build
+
+test:licenses:
+  extends: .test-job
+  script:
+    - yarn check-licenses
