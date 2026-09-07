@@ -52,6 +52,9 @@
     "brace-expansion": "^2.1.4",
     "minimatch": "^3.1.5",
     "picomatch": "^4.0.5",
-    "semver": "^5.7.2"
+    "semver": "^5.7.2",
+    "@xmldom/xmldom@npm:^0.8.8": "npm:>=0.8.15",
+    "browserslist@npm:^4.24.0": "npm:^4.28.9",
+    "browserslist@npm:^4.28.1": "npm:^4.28.9"
   }
 }
