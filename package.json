@@ -48,10 +48,13 @@
     "json5": "^1.0.2",
     "tar": "^7.5.22",
     "cacache/glob": "^10.5.0",
-    "js-yaml": "^4.3.0",
+    "js-yaml": "^4.3.2",
     "brace-expansion": "^2.1.4",
     "minimatch": "^3.1.5",
     "picomatch": "^4.0.5",
-    "semver": "^5.7.2"
+    "semver": "^5.7.2",
+    "baseline-browser-mapping@npm:^2.9.0": "npm:^2.11.22",
+    "browserslist@npm:^4.24.0": "npm:^4.28.9",
+    "browserslist@npm:^4.28.1": "npm:^4.28.9"
   }
 }
