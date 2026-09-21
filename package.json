@@ -1,6 +1,6 @@
 {
   "name": "expo-datadog",
-  "version": "57.0.0",
+  "version": "58.0.0",
   "description": "A client-side Expo module to interact with Datadog",
   "main": "build/index.js",
   "scripts": {
@@ -41,17 +41,21 @@
   },
   "peerDependencies": {
     "@datadog/mobile-react-native": ">=2.0.0",
-    "expo": "57.x"
+    "expo": "58.x"
   },
   "packageManager": "yarn@3.6.1",
   "resolutions": {
     "json5": "^1.0.2",
     "tar": "^7.5.22",
     "cacache/glob": "^10.5.0",
-    "js-yaml": "^4.3.0",
+    "js-yaml": "^4.3.2",
     "brace-expansion": "^2.1.4",
     "minimatch": "^3.1.5",
     "picomatch": "^4.0.5",
-    "semver": "^5.7.2"
+    "semver": "^5.7.2",
+    "@xmldom/xmldom": "^0.8.15",
+    "browserslist": "^4.28.7",
+    "baseline-browser-mapping": "^2.11.0",
+    "socks": "^2.8.10"
   }
 }
