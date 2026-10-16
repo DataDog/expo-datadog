@@ -7,6 +7,7 @@
 import { withXcodeProject } from "@expo/config-plugins";
 
 import withIosSourcemaps from "../withIosSourcemaps/withIosSourcemaps";
+import expoSdk58Project from "./__fixtures__/expoSdk58ProjectPbxproj.json";
 import pristineProject from "./__fixtures__/pristineProjectPbxproj.json";
 import sentryProject from "./__fixtures__/sentryProjectPbxproj.json";
 
@@ -56,6 +57,28 @@ describe("withIosSourcemaps", () => {
       const result = (await withIosSourcemaps({
         serviceName: "com.company.app",
       })(createFakeConfig())) as any;
+      expect(result.xcodeProject.shellScript).toMatchSnapshot();
+    });
+  });
+  describe("on Expo SDK 58+ project with quoted bundle command", () => {
+    it("adds script to upload sourcemaps to Datadog outside of the quotes", async () => {
+      mockXcodeProject(expoSdk58Project);
+      const result = (await withIosSourcemaps({})(createFakeConfig())) as any;
+      const { shellScript } = result.xcodeProject;
+      expect(shellScript).not.toContain('\\"export SOURCEMAP_FILE');
+      expect(shellScript).toContain(
+        "$DATADOG_CI_EXEC react-native xcode \\\"`\\\"$NODE_BINARY\\\" --print \\\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\\"`\\\"\\n"
+      );
+      expect(shellScript).toMatchSnapshot();
+    });
+    it("adds script to upload sourcemaps to Datadog with custom service name", async () => {
+      mockXcodeProject(expoSdk58Project);
+      const result = (await withIosSourcemaps({
+        serviceName: "com.company.app",
+      })(createFakeConfig())) as any;
+      expect(result.xcodeProject.shellScript).toContain(
+        "'/scripts/react-native-xcode.sh'\\\"`\\\" --service com.company.app\\n"
+      );
       expect(result.xcodeProject.shellScript).toMatchSnapshot();
     });
   });

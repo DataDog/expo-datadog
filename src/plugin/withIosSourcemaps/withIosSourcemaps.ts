@@ -14,14 +14,27 @@ import {
 import { escapeStringForIOSBuildPhase } from "../common/utils";
 import { SourceMapUploadOptions } from "../getErrorTrackingPluginsFromOptions";
 
-const DATADOG_XCODE_COMMAND = escapeStringForIOSBuildPhase(`
+const REACT_NATIVE_XCODE_SCRIPT = `\`"$NODE_BINARY" --print "require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'"\``;
+const BUNDLE_COMMAND = escapeStringForIOSBuildPhase(REACT_NATIVE_XCODE_SCRIPT);
+/**
+ * Expo SDK 58+ templates wrap the react-native-xcode.sh call in double quotes.
+ */
+const QUOTED_BUNDLE_COMMAND = escapeStringForIOSBuildPhase(
+  `"${REACT_NATIVE_XCODE_SCRIPT}"`
+);
+
+const getDatadogXCodeCommand = (
+  serviceName: SourceMapUploadOptions["serviceName"],
+  quoteScriptPath = false
+) =>
+  `${escapeStringForIOSBuildPhase(`
 ${IOS_DATADOG_CI_EXPORT}
 
-$DATADOG_CI_EXEC react-native xcode \`"$NODE_BINARY" --print "require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'"\``);
-const getDatadogXCodeCommand = (
-  serviceName: SourceMapUploadOptions["serviceName"]
-) =>
-  `${DATADOG_XCODE_COMMAND}${serviceName ? ` --service ${serviceName}` : ""}`;
+$DATADOG_CI_EXEC react-native xcode ${
+    quoteScriptPath
+      ? `"${REACT_NATIVE_XCODE_SCRIPT}"`
+      : REACT_NATIVE_XCODE_SCRIPT
+  }`)}${serviceName ? ` --service ${serviceName}` : ""}`;
 
 const withIosSourcemaps =
   (options: SourceMapUploadOptions): ConfigPlugin<void> =>
@@ -55,11 +68,13 @@ const withIosSourcemaps =
         return config;
       }
 
+      const isQuoted = bundlePhase.shellScript.includes(QUOTED_BUNDLE_COMMAND);
       const [beforeScript, afterScript] = bundlePhase.shellScript.split(
-        "`\\\"$NODE_BINARY\\\" --print \\\"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\\\"`"
+        isQuoted ? QUOTED_BUNDLE_COMMAND : BUNDLE_COMMAND
       );
       const datadogScript = `${IOS_SOURCEMAP_FILE_EXPORT}\\n ${getDatadogXCodeCommand(
-        options.serviceName
+        options.serviceName,
+        isQuoted
       )}`;
       bundlePhase.shellScript = `${beforeScript}${datadogScript}${afterScript}`;
 
