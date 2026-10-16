@@ -82,6 +82,20 @@ describe("withIosSourcemaps", () => {
       expect(result.xcodeProject.shellScript).toMatchSnapshot();
     });
   });
+  describe("when the script was already added", () => {
+    it.each([
+      ["pristine", pristineProject],
+      ["Expo SDK 58+", expoSdk58Project],
+      ["Sentry", sentryProject],
+    ])("does not add it again on %s project", async (_, project) => {
+      mockXcodeProject(project);
+      const first = (await withIosSourcemaps({})(createFakeConfig())) as any;
+      const { shellScript } = first.xcodeProject;
+      mockXcodeProject(first.xcodeProject);
+      const second = (await withIosSourcemaps({})(createFakeConfig())) as any;
+      expect(second.xcodeProject.shellScript).toBe(shellScript);
+    });
+  });
   describe("on projects implementing Sentry", () => {
     it("adds script to upload sourcemaps to Datadog", async () => {
       mockXcodeProject(sentryProject);

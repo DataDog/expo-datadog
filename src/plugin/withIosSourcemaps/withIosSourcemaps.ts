@@ -45,7 +45,10 @@ const withIosSourcemaps =
         "Bundle React Native code and images",
         "PBXShellScriptBuildPhase"
       );
-      if (bundlePhase.shellScript.match("datadog-ci react-native xcode")) {
+      if (
+        bundlePhase.shellScript.match("datadog-ci react-native xcode") ||
+        bundlePhase.shellScript.includes("$DATADOG_CI_EXEC react-native xcode")
+      ) {
         return config;
       }
       if (bundlePhase.shellScript.match("sentry")) {
