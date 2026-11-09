@@ -3203,11 +3203,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.11.0":
-  version: 2.11.34
-  resolution: "baseline-browser-mapping@npm:2.11.34"
+  version: 2.11.35
+  resolution: "baseline-browser-mapping@npm:2.11.35"
   bin:
     baseline-browser-mapping: dist/cli.cjs
-  checksum: 4b4021874157ebddbfd2f8ee107504beb91e9b5a8141e693e55a524af69296362f812bcdbad6a2af69db3fc0bdfb39fa4188021266eb88b9a5ad87ea782ea788
+  checksum: e14b713a0c738ffb97cee84b283dfec7f203e8336b6c5fd9dbfb269aaf05db1b796ad1b771be464ffd9b87ff10816f0928af4e2779abc8a53463a96d1282606d
   languageName: node
   linkType: hard
 
@@ -4934,13 +4934,13 @@ __metadata:
   linkType: hard
 
 "glob@npm:^13.0.0":
-  version: 13.0.6
-  resolution: "glob@npm:13.0.6"
+  version: 13.0.7
+  resolution: "glob@npm:13.0.7"
   dependencies:
     minimatch: ^10.2.2
     minipass: ^7.1.3
     path-scurry: ^2.0.2
-  checksum: 1eb421c696c66af3c26e4845dbdd222d3b982ede17448456b49272722d872e9a91741b50e4e827370c57d17a39a69790061f45033523f085c076d8fcc0f69d2b
+  checksum: 5dde5b1f983d24e5079e68c805965e87e9380b328fda7a0e6619377379bf1faf0436450fbe218292111a1e4d185f2d4eea38e66214113f43382a88035d47731e
   languageName: node
   linkType: hard
 
@@ -7686,11 +7686,11 @@ __metadata:
   linkType: hard
 
 "semver@npm:^5.7.2":
-  version: 5.7.2
-  resolution: "semver@npm:5.7.2"
+  version: 5.7.3
+  resolution: "semver@npm:5.7.3"
   bin:
     semver: bin/semver
-  checksum: fb4ab5e0dd1c22ce0c937ea390b4a822147a9c53dbd2a9a0132f12fe382902beef4fbf12cf51bb955248d8d15874ce8cd89532569756384f994309825f10b686
+  checksum: 76209e049493490faa576b021973f5702b1111f7a6a3cbbd5823a316152f7229a5b976bfcc2e5c8c9661eef9cd3384ff637271b82cd41b245e09704985ea8627
   languageName: node
   linkType: hard
 
